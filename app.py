@@ -281,3 +281,19 @@ if all([file_8223, file_8224, file_8225, file_8226, file_8229, file_8235, file_8
     )
 else:
     st.warning("Please upload all 8 required Excel files to proceed.")
+
+import streamlit as st
+import requests
+from docx import Document
+from io import BytesIO
+
+# GitHub raw URL
+docx_url = "https://github.com/<your-username>/<repo-name>/raw/main/your_note_file.docx"
+
+# Download and read the .docx
+response = requests.get(docx_url)
+doc = Document(BytesIO(response.content))
+
+# Extract and show content
+content = "\n".join([para.text for para in doc.paragraphs])
+st.text_area("📘 Preview of Word Note", content, height=400)

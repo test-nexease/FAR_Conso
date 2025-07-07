@@ -287,15 +287,24 @@ import requests
 from docx import Document
 from io import BytesIO
 
-# Fixed Raw URL (make sure it's publicly accessible)
+# Fixed Raw URL
 docx_url = "https://github.com/test-nexease/FAR_Conso/raw/0cbc84c0a1996a03b1e8fdbc41a1b000449389b0/%F0%9F%93%84%20SOP%20Note.docx"
 
 # Download and read the .docx
 response = requests.get(docx_url)
 doc = Document(BytesIO(response.content))
 
-# Extract and show content
+# Extract paragraphs
 content = "\n".join([para.text for para in doc.paragraphs])
+
+# Extract tables
+for table in doc.tables:
+    for row in table.rows:
+        row_text = [cell.text.strip() for cell in row.cells]
+        content += "\n" + " | ".join(row_text)
+    content += "\n"
+
+# Show in Streamlit
 st.text_area("📘 Preview of Word Note", content, height=400)
 
 # Optional download button

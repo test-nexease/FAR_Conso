@@ -287,8 +287,8 @@ import requests
 from docx import Document
 from io import BytesIO
 
-# GitHub raw URL
-docx_url = "https://github.com/test-nexease/FAR_Conso/blob/0cbc84c0a1996a03b1e8fdbc41a1b000449389b0/%F0%9F%93%84%20SOP%20Note.docx"
+# Fixed Raw URL (make sure it's publicly accessible)
+docx_url = "https://github.com/test-nexease/FAR_Conso/raw/0cbc84c0a1996a03b1e8fdbc41a1b000449389b0/%F0%9F%93%84%20SOP%20Note.docx"
 
 # Download and read the .docx
 response = requests.get(docx_url)
@@ -297,3 +297,11 @@ doc = Document(BytesIO(response.content))
 # Extract and show content
 content = "\n".join([para.text for para in doc.paragraphs])
 st.text_area("📘 Preview of Word Note", content, height=400)
+
+# Optional download button
+st.download_button(
+    label="📥 Download Word Note",
+    data=response.content,
+    file_name="SOP_Note.docx",
+    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+)

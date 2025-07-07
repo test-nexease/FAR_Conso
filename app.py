@@ -288,7 +288,7 @@ from docx import Document
 from io import BytesIO
 
 # GitHub raw URL
-docx_url = "https://github.com/test-nexease/FAR_Conso/blob/main/%F0%9F%93%84%20SOP%20Note.docx"
+docx_url = "https://github.com/test-nexease/FAR_Conso/blob/0cbc84c0a1996a03b1e8fdbc41a1b000449389b0/%F0%9F%93%84%20SOP%20Note.docx"
 
 # Download and read the .docx
 response = requests.get(docx_url)
